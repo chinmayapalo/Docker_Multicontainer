@@ -1,0 +1,36 @@
+sudo: required
+services:
+  - docker
+
+
+before_install:
+  - docker build -f ./client/Dockerfile.dev -t chinmaya/client-react ./client
+
+script:
+  - docker run chinmaya/client-react npm run test -- --coverage
+  
+after_success:
+  - docker build -t chinmaya/multi-client ./client
+  - docker build -t chinmaya/multi-nginx ./nginx
+  - docker build -t chinmaya/multi-server ./server
+  - docker build -t chinmaya/multi-worker ./worker
+  
+  - echo "$Docker_pass"  | docker login -u "$Docker_ID" --password-stdin
+
+  - docker push chinmaya/multi-client
+  - docker push chinmaya/multi-nginx
+  - docker push chinmaya/multi-server
+  - docker push chinmaya/multi-worker
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "ap-south-1"
+#   app: "docker-react"
+#   env: "DockerReact-env"
+#   bucket_name: "elasticbeanstalk-ap-south-1-159145277228"
+#   bucket_path: "docker-react"
+#   on:
+#     branch: master
+#   access_key_id: $Access_key_ID
+#   secret_access_key:
+#     secure: "$Secret_access_key"
