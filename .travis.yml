@@ -10,17 +10,17 @@ script:
   - docker run chinmaya/client-react npm run test -- --coverage
   
 after_success:
-  - docker build -t chinmaya/multi-client ./client
-  - docker build -t chinmaya/multi-nginx ./nginx
-  - docker build -t chinmaya/multi-server ./server
-  - docker build -t chinmaya/multi-worker ./worker
+  - docker build -t chinmayapalo/multi-client ./client
+  - docker build -t chinmayapalo/multi-nginx ./nginx
+  - docker build -t chinmayapalo/multi-server ./server
+  - docker build -t chinmayapalo/multi-worker ./worker
   
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
-  - docker push chinmaya/multi-client
-  - docker push chinmaya/multi-nginx
-  - docker push chinmaya/multi-server
-  - docker push chinmaya/multi-worker
+  - docker push chinmayapalo/multi-client
+  - docker push chinmayapalo/multi-nginx
+  - docker push chinmayapalo/multi-server
+  - docker push chinmayapalo/multi-worker
 
 # deploy:
 #   provider: elasticbeanstalk
