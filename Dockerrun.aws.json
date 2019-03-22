@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "chinmayapalo/multi-client",
+            "hostname": "client",
+            "essential" : false
+        },
+        {
+            "name": "server",
+            "image": "chinmayapalo/multi-server",
+            "hostname": "api",
+            "essential" : false
+        },
+        {
+            "name": "worker",
+            "image": "chinmayapalo/multi-worker",
+            "hostname": "worker",
+            "essential" : false
+        },
+        {
+            "name": "nginx",
+            "image": "chinmayapalo/multi-nginx",
+            "hostname": "nginx",
+            "essential" : true,
+            "portMappings": [
+            {
+                "hostPort": 80,
+                "containerPort": 80 
+            }
+
+
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}

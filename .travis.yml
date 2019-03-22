@@ -22,15 +22,15 @@ after_success:
   - docker push chinmayapalo/multi-server
   - docker push chinmayapalo/multi-worker
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "ap-south-1"
-#   app: "docker-react"
-#   env: "DockerReact-env"
-#   bucket_name: "elasticbeanstalk-ap-south-1-159145277228"
-#   bucket_path: "docker-react"
-#   on:
-#     branch: master
-#   access_key_id: $Access_key_ID
-#   secret_access_key:
-#     secure: "$Secret_access_key"
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-159145277228"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: $Access_key_ID
+  secret_access_key:
+    secure: "$Secret_access_key"
